@@ -116,6 +116,44 @@ describe('onscrolling.remove', function() {
 			});
 		});
 	});
+
+	it('removes scrollX watchers when onscrolling.remove is called with direction "horizontal"', function(done) {
+		var onScrollFn = sinon.spy();
+
+		onscrolling('x', onScrollFn);
+		triggerScroll('x');
+
+		requestFrame(function() {
+			onScrollFn.calledOnce.should.be.true;
+
+			onscrolling.remove('horizontal', onScrollFn);
+			triggerScroll('x');
+
+			requestFrame(function() {
+				onScrollFn.calledOnce.should.be.true;
+				done();
+			});
+		});
+	});
+
+	it('removes scroll x + y watchers when onscrolling.remove is called with direction "any"', function(done) {
+		var onScrollFn = sinon.spy();
+
+		onscrolling('any', onScrollFn);
+		triggerScroll('x');
+
+		requestFrame(function() {
+			onScrollFn.calledOnce.should.be.true;
+
+			onscrolling.remove('any', onScrollFn);
+			triggerScroll('x');
+
+			requestFrame(function() {
+				onScrollFn.calledOnce.should.be.true;
+				done();
+			});
+		});
+	});
 });
 
 function setupDocument() {
