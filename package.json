@@ -1,0 +1,38 @@
+{
+  "name": "jank-free-onscroll",
+  "version": "0.2.0",
+  "description": "Window.onscroll listener using requestAnimationFrame for performance and mobile-compatibility",
+  "main": "dist/onscroll.js",
+  "scripts": {
+    "test": "open test/index.html",
+    "build": "esperanto -i src/onscroll.js -o dist/onscroll.js -t umd -n onscrolling",
+    "build-install": "npm install -g esperanto;",
+    "build-babel": "babel --modules umd src/onscroll.js -o dist/onscroll.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acusti/jank-free-onscroll.git"
+  },
+  "keywords": [
+    "onscroll",
+    "scroll",
+    "browser",
+    "requestAnimationFrame",
+    "raf",
+    "event",
+    "mobile"
+  ],
+  "author": "Andrew Patton <andrew@acusti.ca> (http://www.acusti.ca)",
+  "license": "CC0",
+  "bugs": {
+    "url": "https://github.com/acusti/jank-free-onscroll/issues"
+  },
+  "homepage": "https://github.com/acusti/jank-free-onscroll",
+  "devDependencies": {
+    "babel": "^4.7.16",
+    "jest-cli": "^0.4.0",
+    "mocha": "^2.2.1",
+    "should": "^5.2.0",
+    "sinon": "^1.14.1"
+  }
+}
