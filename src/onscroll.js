@@ -70,7 +70,7 @@ function onScrollDebouncer() {
  *                 or 'any' (listens to both)
  * @param function callback  Function to attach to a scroll event in specified direction
  */
-function onscroll(direction, callback) {
+function onscrolling(direction, callback) {
 	if (!isSupported) {
 		return;
 	}
@@ -96,7 +96,7 @@ function onscroll(direction, callback) {
     }
 }
 
-onscroll.remove = function(direction, fn) {
+onscrolling.remove = function(direction, fn) {
     var queueKey = 'y',
         queue,
         fnIdx;
@@ -120,6 +120,6 @@ onscroll.remove = function(direction, fn) {
         queue.splice(fnIdx, 1);
     }
 };
-onscroll.off = onscroll.remove;
+onscrolling.off = onscrolling.remove;
 
-export default onscroll;
+export default onscrolling;
