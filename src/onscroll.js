@@ -18,7 +18,7 @@ var requestFrame  = window.requestAnimationFrame || window.mozRequestAnimationFr
     },
     handleScroll,
     onScrollDebouncer,
-    onscroll;
+    onscrolling;
 
 function handleScroll() {
 	var i;
