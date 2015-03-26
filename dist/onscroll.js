@@ -24,7 +24,7 @@
         },
         handleScroll,
         onScrollDebouncer,
-        onscroll;
+        onscrolling;
 
     function handleScroll() {
     	var i;
@@ -76,7 +76,7 @@
      *                 or 'any' (listens to both)
      * @param function callback  Function to attach to a scroll event in specified direction
      */
-    function onscroll(direction, callback) {
+    function onscrolling(direction, callback) {
     	if (!isSupported) {
     		return;
     	}
@@ -92,9 +92,9 @@
             return;
         }
         if (typeof callback === 'function') {
-            if (directionX.indexOf(direction) > -1) {
+            if (~directionX.indexOf(direction)) {
                 callbackQueue.x.push(callback);
-            } else if (directionAll.indexOf(direction) > -1) {
+            } else if (~directionAll.indexOf(direction)) {
                 callbackQueue.any.push(callback);
             } else {
                 callbackQueue.y.push(callback);
@@ -102,7 +102,7 @@
         }
     }
 
-    onscroll.remove = function(direction, fn) {
+    onscrolling.remove = function(direction, fn) {
         var queueKey = 'y',
             queue,
             fnIdx;
@@ -112,9 +112,9 @@
             if (typeof fn !== 'function') {
                 return;
             }
-            if (directionX.indexOf(direction) > -1) {
+            if (~directionX.indexOf(direction)) {
                 queueKey = directionX[0];
-            } else if (directionAll.indexOf(direction) > -1) {
+            } else if (~directionAll.indexOf(direction)) {
                 queueKey = directionAll[0];
             }
         } else {
@@ -126,9 +126,9 @@
             queue.splice(fnIdx, 1);
         }
     };
-    onscroll.off = onscroll.remove;
+    onscrolling.off = onscrolling.remove;
 
 
-    return onscroll;
+    return onscrolling;
 
 }));
