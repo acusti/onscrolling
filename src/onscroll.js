@@ -86,9 +86,9 @@ function onscrolling(direction, callback) {
         return;
     }
     if (typeof callback === 'function') {
-        if (directionX.indexOf(direction) > -1) {
+        if (~directionX.indexOf(direction)) {
             callbackQueue.x.push(callback);
-        } else if (directionAll.indexOf(direction) > -1) {
+        } else if (~directionAll.indexOf(direction)) {
             callbackQueue.any.push(callback);
         } else {
             callbackQueue.y.push(callback);
@@ -106,9 +106,9 @@ onscrolling.remove = function(direction, fn) {
         if (typeof fn !== 'function') {
             return;
         }
-        if (directionX.indexOf(direction) > -1) {
+        if (~directionX.indexOf(direction)) {
             queueKey = directionX[0];
-        } else if (directionAll.indexOf(direction) > -1) {
+        } else if (~directionAll.indexOf(direction)) {
             queueKey = directionAll[0];
         }
     } else {
