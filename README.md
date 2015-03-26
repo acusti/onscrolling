@@ -44,7 +44,7 @@ None, accept to run the tests.
 
 ## Compatibility
 
-Out of the box, onscrolling uses `requestAnimationFrame`, which is [only available in IE10+][raf-caniuse]. For older browsers, your scroll watchers simply won?t run. To add compatibility for those browsers, just include a [requestAnimationFrame polyfill][raf-polyfill].
+Out of the box, onscrolling uses `requestAnimationFrame`, which is [only available in IE10+][raf-caniuse]. For older browsers, your scroll watchers simply won’t run. To add compatibility for those browsers, just include a [requestAnimationFrame polyfill][raf-polyfill].
 
 ## Tests
 
