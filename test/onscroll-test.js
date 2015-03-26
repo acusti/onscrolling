@@ -1,8 +1,33 @@
-/* globals describe, it, sinon, beforeEach, onscrolling */
+/* globals onscrolling */
 
 // var should = require('should');
 
 var requestFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+function setupDocument() {
+	var fixture = document.getElementById('fixture');
+	fixture.style.height = '120%';
+	fixture.style.width = '120%';
+	document.documentElement.style.height = document.body.style.height = '100%';
+}
+
+function dispatchScroll() {
+	var scrollEvt = new Event('scroll');
+	window.dispatchEvent(scrollEvt);
+}
+
+function triggerScroll(direction) {
+	var newX = window.pageXOffset ? 0 : 10,
+	    newY = window.pageYOffset ? 0 : 10;
+	if (direction === 'x' || direction === 'horizontal') {
+		window.scrollTo(newX, window.pageYOffset);
+	} else if (direction === 'any') {
+		window.scrollTo(newX, newY);
+	} else {
+		window.scrollTo(window.pageXOffset, newY);
+	}
+	dispatchScroll();
+}
 
 describe('onscrolling', function() {
 	beforeEach(function() {
@@ -155,28 +180,3 @@ describe('onscrolling.remove', function() {
 		});
 	});
 });
-
-function setupDocument() {
-	var fixture = document.getElementById('fixture');
-	fixture.style.height = '120%';
-	fixture.style.width = '120%';
-	document.documentElement.style.height = document.body.style.height = '100%';
-}
-
-function triggerScroll(direction) {
-	var newX = window.pageXOffset ? 0 : 10,
-	    newY = window.pageYOffset ? 0 : 10;
-	if (direction === 'x' || direction === 'horizontal') {
-		window.scrollTo(newX, window.pageYOffset);
-	} else if (direction === 'any') {
-		window.scrollTo(newX, newY);
-	} else {
-		window.scrollTo(window.pageXOffset, newY);
-	}
-	dispatchScroll();
-}
-
-function dispatchScroll() {
-	var scrollEvt = new Event('scroll');
-	window.dispatchEvent(scrollEvt);
-}

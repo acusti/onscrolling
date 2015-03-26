@@ -1,7 +1,7 @@
 {
 	"node": true,
 	"browser": true,
-	"bitwise": true,
+	"bitwise": false,
 	"curly": true,
 	"eqeqeq": true,
 	"esnext": true,
@@ -15,9 +15,8 @@
 		"describe",
 		"beforeEach",
 		"it",
-		"jest",
-		"pit",
-		"expect"
+		"sinon",
+		"should"
 	],
 	"quotmark": "single",
 	"regexp": true,
@@ -25,5 +24,6 @@
 	"unused": true,
 	"strict": false,
 	"trailing": true,
-	"smarttabs": true
+	"smarttabs": true,
+	"-W030": true
 }
