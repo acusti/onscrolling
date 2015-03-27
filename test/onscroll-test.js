@@ -108,6 +108,46 @@ describe('onscrolling', function() {
 	});
 });
 
+describe('onscrolling callback', function() {
+	beforeEach(function() {
+		setupDocument();
+	});
+
+	it('defaults to passing the value of scrollY to registered listeners when vertical scroll position has changed', function(done) {
+		var onScrollFn = function(scrollY) {
+			(scrollY === window.pageYOffset).should.be.true;
+			onscrolling.remove(onScrollFn);
+			done();
+		};
+
+		onscrolling(onScrollFn);
+		triggerScroll();
+	});
+
+	it('passes the value of scrollX to registered listeners when horizontal scroll position has changed', function(done) {
+		var onScrollFn = function(scrollX) {
+			(scrollX === window.pageXOffset).should.be.true;
+			onscrolling.remove('x', onScrollFn);
+			done();
+		};
+
+		onscrolling('x', onScrollFn);
+		triggerScroll('x');
+	});
+
+	it('passes an array [x,y] to registered listeners of "any" scroll event when scroll position has changed', function(done) {
+		var onScrollFn = function(scrollPoint) {
+			(scrollPoint[0] === window.pageXOffset).should.be.true;
+			(scrollPoint[1] === window.pageYOffset).should.be.true;
+			onscrolling.remove('any', onScrollFn);
+			done();
+		};
+
+		onscrolling('any', onScrollFn);
+		triggerScroll();
+	});
+});
+
 describe('onscrolling.remove', function() {
 	beforeEach(function() {
 		setupDocument();

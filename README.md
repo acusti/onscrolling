@@ -10,7 +10,7 @@ The object exports an `onscrolling` module if being used with a Common JS or AMD
 
 #### `callback` function
 
-The function to call on a scroll event. In this default version, the module will only call the `callback()` when the page has been scrolled vertically.
+The function to call on a scroll event. In this default version, the module will only call the `callback()` when the page has been scrolled vertically. It will be passed the current vertical scroll position to the callback.
 
 ### `onscrolling( direction, callback )`
 
@@ -20,7 +20,7 @@ The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when pa
 
 #### `callback` function
 
-The function to call when the page is scrolled.
+The function to call when the page is scrolled. It will be passed the current horizontal scroll position to the callback if listening for scrollX changes, or an array `[x,y]` if callback is listening for any scroll change.
 
 ### `onscrolling.remove( fn )`
 
