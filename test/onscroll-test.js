@@ -49,9 +49,9 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove(onScrollFn);
 			done();
 		});
-
 	});
 
 	it('when direction is "x", triggers when scrollX position has changed', function(done) {
@@ -62,6 +62,7 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('x', onScrollFn);
 			done();
 		});
 	});
@@ -74,6 +75,7 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('x', onScrollFn);
 			done();
 		});
 	});
@@ -87,10 +89,10 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('any', onScrollFn);
 			done();
 		});
 	});
-	// TODO: add a function that takes a callback, creates the spy, triggerscroll x and/or y, and calls the callback at the end with the spy as the param
 
 	it('when direction is "any", triggers on scrollY position change', function(done) {
 		var onScrollFn = sinon.spy();
@@ -100,6 +102,7 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('any', onScrollFn);
 			done();
 		});
 	});
