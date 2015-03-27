@@ -2,13 +2,19 @@
 
 // var should = require('should');
 
-var requestFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+var requestFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame,
+    fixture,
+	totals;
 
 function setupDocument() {
-	var fixture = document.getElementById('fixture');
-	fixture.style.height = '120%';
-	fixture.style.width = '120%';
 	document.documentElement.style.height = document.body.style.height = '100%';
+	fixture = document.getElementById('fixture');
+	fixture.style.height = '120%';
+	fixture.style.width  = '120%';
+	totals = {
+		x: fixture.offsetLeft + fixture.clientWidth,
+		y: fixture.offsetTop + fixture.clientHeight
+	};
 }
 
 function dispatchScroll() {
@@ -17,8 +23,8 @@ function dispatchScroll() {
 }
 
 function triggerScroll(direction) {
-	var newX = window.pageXOffset ? 0 : 10,
-	    newY = window.pageYOffset ? 0 : 10;
+	var newX = window.pageXOffset + window.innerWidth  >= totals.x ? 0 : window.pageXOffset + 3,
+	    newY = window.pageYOffset + window.innerHeight >= totals.y ? 0 : window.pageYOffset + 3;
 	if (direction === 'x' || direction === 'horizontal') {
 		window.scrollTo(newX, window.pageYOffset);
 	} else if (direction === 'any') {
