@@ -2,13 +2,19 @@
 
 // var should = require('should');
 
-var requestFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+var requestFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame,
+    fixture,
+	totals;
 
 function setupDocument() {
-	var fixture = document.getElementById('fixture');
-	fixture.style.height = '120%';
-	fixture.style.width = '120%';
 	document.documentElement.style.height = document.body.style.height = '100%';
+	fixture = document.getElementById('fixture');
+	fixture.style.height = '120%';
+	fixture.style.width  = '120%';
+	totals = {
+		x: fixture.offsetLeft + fixture.clientWidth,
+		y: fixture.offsetTop + fixture.clientHeight
+	};
 }
 
 function dispatchScroll() {
@@ -17,8 +23,8 @@ function dispatchScroll() {
 }
 
 function triggerScroll(direction) {
-	var newX = window.pageXOffset ? 0 : 10,
-	    newY = window.pageYOffset ? 0 : 10;
+	var newX = window.pageXOffset + window.innerWidth  >= totals.x ? 0 : window.pageXOffset + 3,
+	    newY = window.pageYOffset + window.innerHeight >= totals.y ? 0 : window.pageYOffset + 3;
 	if (direction === 'x' || direction === 'horizontal') {
 		window.scrollTo(newX, window.pageYOffset);
 	} else if (direction === 'any') {
@@ -43,9 +49,9 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove(onScrollFn);
 			done();
 		});
-
 	});
 
 	it('when direction is "x", triggers when scrollX position has changed', function(done) {
@@ -56,6 +62,7 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('x', onScrollFn);
 			done();
 		});
 	});
@@ -68,6 +75,7 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('x', onScrollFn);
 			done();
 		});
 	});
@@ -81,10 +89,10 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('any', onScrollFn);
 			done();
 		});
 	});
-	// TODO: add a function that takes a callback, creates the spy, triggerscroll x and/or y, and calls the callback at the end with the spy as the param
 
 	it('when direction is "any", triggers on scrollY position change', function(done) {
 		var onScrollFn = sinon.spy();
@@ -94,8 +102,49 @@ describe('onscrolling', function() {
 
 		requestFrame(function() {
 			onScrollFn.calledOnce.should.be.true;
+			onscrolling.remove('any', onScrollFn);
 			done();
 		});
+	});
+});
+
+describe('onscrolling callback', function() {
+	beforeEach(function() {
+		setupDocument();
+	});
+
+	it('defaults to passing the value of scrollY to registered listeners when vertical scroll position has changed', function(done) {
+		var onScrollFn = function(scrollY) {
+			(scrollY === window.pageYOffset).should.be.true;
+			onscrolling.remove(onScrollFn);
+			done();
+		};
+
+		onscrolling(onScrollFn);
+		triggerScroll();
+	});
+
+	it('passes the value of scrollX to registered listeners when horizontal scroll position has changed', function(done) {
+		var onScrollFn = function(scrollX) {
+			(scrollX === window.pageXOffset).should.be.true;
+			onscrolling.remove('x', onScrollFn);
+			done();
+		};
+
+		onscrolling('x', onScrollFn);
+		triggerScroll('x');
+	});
+
+	it('passes an array [x,y] to registered listeners of "any" scroll event when scroll position has changed', function(done) {
+		var onScrollFn = function(scrollPoint) {
+			(scrollPoint[0] === window.pageXOffset).should.be.true;
+			(scrollPoint[1] === window.pageYOffset).should.be.true;
+			onscrolling.remove('any', onScrollFn);
+			done();
+		};
+
+		onscrolling('any', onScrollFn);
+		triggerScroll();
 	});
 });
 
