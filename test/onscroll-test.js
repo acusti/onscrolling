@@ -7,10 +7,7 @@ var requestFrame = window.requestAnimationFrame || window.mozRequestAnimationFra
 	totals;
 
 function setupDocument() {
-	document.documentElement.style.height = document.body.style.height = '100%';
 	fixture = document.getElementById('fixture');
-	fixture.style.height = '120%';
-	fixture.style.width  = '120%';
 	totals = {
 		x: fixture.offsetLeft + fixture.clientWidth,
 		y: fixture.offsetTop + fixture.clientHeight
@@ -18,8 +15,17 @@ function setupDocument() {
 }
 
 function dispatchScroll() {
-	var scrollEvt = new Event('scroll');
-	window.dispatchEvent(scrollEvt);
+    // Not supported in phantomjs 1.9.x:
+	// var scrollEvt = new Event('scroll');
+	// window.dispatchEvent(scrollEvt);
+    // Use document.createEvent (via MDN)
+    var scrollEvt = document.createEvent('Event');
+
+    // Define that the event name is 'scroll'.
+    scrollEvt.initEvent('scroll', true, true);
+
+    // Dispatch event using document
+    document.dispatchEvent(scrollEvt);
 }
 
 function triggerScroll(direction) {

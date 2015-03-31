@@ -4,7 +4,8 @@
   "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
   "main": "dist/onscroll.js",
   "scripts": {
-    "test": "open test/index.html",
+    "test": "mocha-phantomjs ./test/index.html",
+    "test-ghetto": "open test/index.html",
     "build": "esperanto -i src/onscroll.js -o dist/onscroll.js -t umd -n onscrolling",
     "build-install": "npm install -g esperanto;",
     "build-babel": "babel --modules umd src/onscroll.js -o dist/onscroll.js"
@@ -29,12 +30,13 @@
   },
   "homepage": "https://github.com/acusti/jank-free-onscroll",
   "devDependencies": {
-    "babel": "^4.7.16",
-    "jest-cli": "^0.4.0",
     "mocha": "^2.2.1",
+    "mocha-phantomjs": "^3.5.3",
+    "phantomjs": "^1.9.16",
     "should": "^5.2.0",
     "sinon": "^1.14.1"
   },
+  "dependencies": {},
   "jspm": {
     "directories": {
       "lib": "src"

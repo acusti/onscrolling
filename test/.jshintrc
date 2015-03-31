@@ -14,9 +14,11 @@
 	"predef": [
 		"describe",
 		"beforeEach",
+		"afterEach",
 		"it",
 		"sinon",
-		"should"
+		"should",
+		"mocha"
 	],
 	"quotmark": "single",
 	"regexp": true,
