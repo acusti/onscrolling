@@ -1,22 +1,42 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jank-free onscroll mocha tests</title>
-  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jank-free onscroll tests</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            background: white;
+        }
+        #fixture {
+            width: 120%;
+            height: 120%;
+        }
+    </style>
 </head>
-<body style="background: white">
-  <div id="mocha"></div>
-  <div id="fixture"></div>
-  <script src="../node_modules/mocha/mocha.js"></script>
-  <script>mocha.setup('bdd')</script>
-  <script src="../dist/onscroll.js"></script>
-  <script src="../node_modules/should/should.js"></script>
-  <script src="../node_modules/sinon/pkg/sinon.js"></script>
-  <script src="onscroll-test.js"></script>
-  <script>
-    mocha.run();
-  </script>
+<body>
+    <div id="mocha"></div>
+    <div id="fixture"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script>
+        mocha.setup('bdd');
+        mocha.reporter('html');
+    </script>
+    <script src="rAF-polyfill.js"></script>
+    <script src="../dist/onscroll.js"></script>
+    <script src="../node_modules/should/should.js"></script>
+    <script src="../node_modules/sinon/pkg/sinon.js"></script>
+    <script src="onscroll-test.js"></script>
+    <script>
+        if (window.mochaPhantomJS) {
+            window.mochaPhantomJS.run();
+        } else {
+            mocha.run();
+        }
+    </script>
 </body>
 </html>
