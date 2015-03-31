@@ -20,7 +20,7 @@ The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when pa
 
 #### `callback` function
 
-The function to call when the page is scrolled. It will be passed the current horizontal scroll position to the callback if listening for scrollX changes, or an array `[x,y]` if callback is listening for any scroll change.
+The function to call when the page is scrolled. It will be passed the current horizontal scroll position to the callback if listening for scrollX changes, or an array `[x,y]` if callback is listening for `any` scroll change.
 
 ### `onscrolling.remove( fn )`
 

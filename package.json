@@ -34,5 +34,12 @@
     "mocha": "^2.2.1",
     "should": "^5.2.0",
     "sinon": "^1.14.1"
+  },
+  "jspm": {
+    "directories": {
+      "lib": "src"
+    },
+    "main": "onscroll",
+    "format": "es6"
   }
 }
