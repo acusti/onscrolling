@@ -1,7 +1,7 @@
 {
   "name": "jank-free-onscroll",
-  "version": "0.2.0",
-  "description": "Window.onscroll listener using requestAnimationFrame for performance and mobile-compatibility",
+  "version": "0.2.1",
+  "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
   "main": "dist/onscroll.js",
   "scripts": {
     "test": "open test/index.html",
