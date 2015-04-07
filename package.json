@@ -7,7 +7,6 @@
     "test": "mocha-phantomjs ./test/index.html",
     "test-ghetto": "open test/index.html",
     "build": "esperanto --type umd --name onscrolling -i src/onscrolling.js -o dist/onscrolling.js",
-    "build-install": "npm install -g esperanto;",
     "build-babel": "babel --modules umd src/onscrolling.js -o dist/onscrolling.js"
   },
   "repository": {
@@ -30,6 +29,7 @@
   },
   "homepage": "https://github.com/acusti/onscrolling",
   "devDependencies": {
+    "esperanto": "^0.6.27",
     "mocha": "^2.2.1",
     "mocha-phantomjs": "^3.5.3",
     "phantomjs": "^1.9.16",
