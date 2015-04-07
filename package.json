@@ -7,7 +7,7 @@
     "test": "npm run build && npm run lint-tests && mocha-phantomjs ./test/index.html",
     "test-ghetto": "open test/index.html",
     "lint-src": "jshint src/onscrolling.js",
-    "lint-tests": "jshint test/onscroll-test.js",
+    "lint-tests": "jshint test/onscroll-test.js && jshint --extract=auto test/index.html",
     "build": "npm run lint-src && esperanto --type umd --name onscrolling -i src/onscrolling.js -o dist/onscrolling.js",
     "build-babel": "babel --modules umd src/onscrolling.js -o dist/onscrolling.js"
   },
