@@ -56,6 +56,12 @@ Tests use Mocha + Should.js + Sinon and must be run in a browser. Just open `tes
 
 - [ ] Add optional param to specify an object other than `window` to monitor for scroll events
 
+## Misc
+
+*Note: This is the package formerly known as [jank-free-onscroll][]*
+
+
 [html5rocks-tutorial]: http://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-scroll-events
 [raf-caniuse]: http://caniuse.com/#feat=requestanimationframe
 [raf-polyfill]: https://gist.github.com/paulirish/1579671
+[jank-free-onscroll]: https://github.com/acusti/jank-free-onscroll
