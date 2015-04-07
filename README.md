@@ -6,7 +6,7 @@ A better, smoother, more performant onscroll event interface based on the concep
 
 ## Usage
 
-The object exports an `onscrolling` module if being used with a CommonJS or AMD module loader, or else exposes a global object as `window.onscrolling`.
+The module exports an `onscrolling` module if being used with a CommonJS or AMD module loader, or else exposes a global object as `window.onscrolling`.
 
 ### `onscrolling( callback )`
 

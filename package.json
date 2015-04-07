@@ -2,13 +2,13 @@
   "name": "jank-free-onscroll",
   "version": "0.2.1",
   "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
-  "main": "dist/onscroll.js",
+  "main": "dist/onscrolling.js",
   "scripts": {
     "test": "mocha-phantomjs ./test/index.html",
     "test-ghetto": "open test/index.html",
-    "build": "esperanto -i src/onscroll.js -o dist/onscroll.js -t umd -n onscrolling",
+    "build": "esperanto --type umd --name onscrolling -i src/onscrolling.js -o dist/onscrolling.js",
     "build-install": "npm install -g esperanto;",
-    "build-babel": "babel --modules umd src/onscroll.js -o dist/onscroll.js"
+    "build-babel": "babel --modules umd src/onscrolling.js -o dist/onscrolling.js"
   },
   "repository": {
     "type": "git",
