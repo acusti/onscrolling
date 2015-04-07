@@ -1,6 +1,5 @@
 {
-  "name": "jank-free-onscroll",
-  "version": "0.2.1",
+  "name": "onscrolling",
   "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
   "main": "dist/onscrolling.js",
   "scripts": {
@@ -12,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acusti/jank-free-onscroll.git"
+    "url": "https://github.com/acusti/onscrolling.git"
   },
   "keywords": [
     "onscroll",
@@ -26,9 +25,9 @@
   "author": "Andrew Patton <andrew@acusti.ca> (http://www.acusti.ca)",
   "license": "CC0",
   "bugs": {
-    "url": "https://github.com/acusti/jank-free-onscroll/issues"
+    "url": "https://github.com/acusti/onscrolling/issues"
   },
-  "homepage": "https://github.com/acusti/jank-free-onscroll",
+  "homepage": "https://github.com/acusti/onscrolling",
   "devDependencies": {
     "mocha": "^2.2.1",
     "mocha-phantomjs": "^3.5.3",

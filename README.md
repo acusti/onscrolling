@@ -1,8 +1,8 @@
-# Jank-free onscroll&nbsp; [![Build Status](https://travis-ci.org/acusti/jank-free-onscroll.svg?branch=master)](https://travis-ci.org/acusti/jank-free-onscroll)
+# Jank-free onscrolling&nbsp; [![Build Status](https://travis-ci.org/acusti/onscrolling.svg?branch=master)](https://travis-ci.org/acusti/onscrolling)
 
 A better, smoother, more performant onscroll event interface based on the concepts from [this html5rocks tutorial][html5rocks-tutorial]. It uses `requestAnimationFrame` plus debouncing for performance and mobile-compatibility (thanks to the `touchmove` event), giving you a fighting chance to achieve the hallowed 60fps of lore with your scroll-listening UI.
 
-[![NPM](https://nodei.co/npm/jank-free-onscroll.png?compact=true)](https://nodei.co/npm/jank-free-onscroll/)
+[![NPM](https://nodei.co/npm/onscrolling.png?compact=true)](https://nodei.co/npm/onscrolling/)
 
 ## Usage
 

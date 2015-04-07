@@ -1,12 +1,11 @@
 {
-  "name": "jank-free-onscroll",
-  "version": "0.2.1",
-  "homepage": "https://github.com/acusti/jank-free-onscroll",
+  "name": "onscrolling",
+  "homepage": "https://github.com/acusti/onscrolling",
   "authors": [
     "Andrew Patton <andrew@acusti.ca>"
   ],
   "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
-  "main": "dist/onscroll.js",
+  "main": "dist/onscrolling.js",
   "moduleType": [
     "amd",
     "es6",
