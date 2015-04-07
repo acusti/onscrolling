@@ -1,12 +1,14 @@
 {
   "name": "onscrolling",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
   "main": "dist/onscrolling.js",
   "scripts": {
-    "test": "npm run build && mocha-phantomjs ./test/index.html",
+    "test": "npm run build && npm run lint-tests && mocha-phantomjs ./test/index.html",
     "test-ghetto": "open test/index.html",
-    "build": "esperanto --type umd --name onscrolling -i src/onscrolling.js -o dist/onscrolling.js",
+    "lint-src": "jshint src/onscrolling.js",
+    "lint-tests": "jshint test/onscroll-test.js && jshint --extract=auto test/index.html",
+    "build": "npm run lint-src && esperanto --type umd --name onscrolling -i src/onscrolling.js -o dist/onscrolling.js",
     "build-babel": "babel --modules umd src/onscrolling.js -o dist/onscrolling.js"
   },
   "repository": {
@@ -30,6 +32,7 @@
   "homepage": "https://github.com/acusti/onscrolling",
   "devDependencies": {
     "esperanto": "^0.6.27",
+    "jshint": "^2.6.3",
     "mocha": "^2.2.1",
     "mocha-phantomjs": "^3.5.3",
     "phantomjs": "^1.9.16",
