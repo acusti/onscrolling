@@ -19,6 +19,12 @@ var requestFrame  = window.requestAnimationFrame || window.mozRequestAnimationFr
 
 function handleScroll() {
 	var i;
+    if (callbackQueue.x.length || callbackQueue.any.length) {
+        scrollX = window.pageXOffset;
+    }
+    if (callbackQueue.y.length || callbackQueue.any.length) {
+        scrollY = window.pageYOffset;
+    }
 
 	if (scrollY !== scrollYCached) {
         for (i = 0; i < callbackQueue.y.length; i++) {
@@ -37,6 +43,7 @@ function handleScroll() {
     }
 
     isQueued = false;
+    enableScrollListener();
 }
 
 function requestTick() {
@@ -46,14 +53,27 @@ function requestTick() {
 	isQueued = true;
 }
 
+function enableScrollListener() {
+    if (isListening) {
+        return;
+    }
+    window.addEventListener('scroll', onScrollDebouncer);
+    document.body.addEventListener('touchmove', onScrollDebouncer);
+    isListening = true;
+}
+
+function disableScrollListener() {
+    if (!isListening) {
+        return;
+    }
+    window.removeEventListener('scroll', onScrollDebouncer);
+    document.body.removeEventListener('touchmove', onScrollDebouncer);
+    isListening = false;
+}
+
 function onScrollDebouncer() {
-    if (callbackQueue.x.length || callbackQueue.any.length) {
-        scrollX = window.pageXOffset;
-    }
-    if (callbackQueue.y.length || callbackQueue.any.length) {
-        scrollY = window.pageYOffset;
-    }
 	requestTick();
+    disableScrollListener();
 }
 
 /**
@@ -71,11 +91,7 @@ function onscrolling(direction, callback) {
 	if (!isSupported) {
 		return;
 	}
-	if (!isListening) {
-		window.addEventListener('scroll', onScrollDebouncer);
-		document.body.addEventListener('touchmove', onScrollDebouncer);
-		isListening = true;
-	}
+	enableScrollListener();
     // Verify parameters
     if (typeof direction === 'function') {
         callback = direction;
