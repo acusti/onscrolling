@@ -18,7 +18,6 @@ var requestFrame  = window.requestAnimationFrame || window.mozRequestAnimationFr
     };
 
 function handleScroll() {
-	var i;
     if (callbackQueue.x.length || callbackQueue.any.length) {
         scrollX = window.pageXOffset;
     }
@@ -27,24 +26,32 @@ function handleScroll() {
     }
 
 	if (scrollY !== scrollYCached) {
-        for (i = 0; i < callbackQueue.y.length; i++) {
-    		callbackQueue.y[i](scrollY);
-    	}
+        callbackQueue.y.forEach(triggerCallback.y);
         scrollYCached = scrollY;
     }
 	if (scrollX !== scrollXCached) {
-        for (i = 0; i < callbackQueue.x.length; i++) {
-    		callbackQueue.x[i](scrollX);
-    	}
+        callbackQueue.x.forEach(triggerCallback.x);
         scrollXCached = scrollX;
     }
-    for (i = 0; i < callbackQueue.any.length; i++) {
-        callbackQueue.any[i]([scrollX, scrollY]);
-    }
+    callbackQueue.any.forEach(triggerCallback.any);
 
     isQueued = false;
     enableScrollListener();
 }
+
+function triggerCallback(callback, scroll) {
+    callback(scroll);
+}
+
+triggerCallback.y = function(callback) {
+    triggerCallback(callback, scrollY);
+};
+triggerCallback.x = function(callback) {
+    triggerCallback(callback, scrollX);
+};
+triggerCallback.any = function(callback) {
+    triggerCallback(callback, [scrollX, scrollY]);
+};
 
 function requestTick() {
 	if (!isQueued) {
