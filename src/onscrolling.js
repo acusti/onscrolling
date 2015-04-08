@@ -189,6 +189,11 @@ onscrolling.remove = function(direction, fn) {
     if (fnIdx > -1) {
         queue.splice(fnIdx, 1);
     }
+    // If there's no listeners left, disable listening
+    if (!callbackQueue.x.length && !callbackQueue.y.length && !callbackQueue.any.length) {
+        cancelTick();
+        disableScrollListener();
+    }
 };
 onscrolling.off = onscrolling.remove;
 
