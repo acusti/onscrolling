@@ -1,59 +1,136 @@
 'use strict';
 
-var requestFrame  = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame,
-    isSupported    = requestFrame !== undefined,
+// Get proper requestAnimationFrame
+var requestFrame = window.requestAnimationFrame,
+    cancelFrame  = window.cancelAnimationFrame;
+
+if (!requestFrame) {
+    ['ms', 'moz', 'webkit', 'o'].every(function(prefix) {
+        requestFrame = window[prefix + 'RequestAnimationFrame'];
+        cancelFrame  = window[prefix + 'CancelAnimationFrame'] ||
+                       window[prefix + 'CancelRequestAnimationFrame'];
+        // Continue iterating only if requestFrame is still false
+        return !requestFrame;
+    });
+}
+
+// Module state
+var isSupported    = !!requestFrame,
     isListening    = false,
     isQueued       = false,
+    isIdle         = true,
     scrollY        = window.pageYOffset,
     scrollX        = window.pageXOffset,
     scrollYCached  = scrollY,
     scrollXCached  = scrollX,
     directionX     = ['x', 'horizontal'],
-    // directionY     = [ 'y', 'vertical'],
     directionAll   = ['any'],
     callbackQueue  = {
         x   : [],
         y   : [],
         any : []
-    };
+    },
+    detectIdleTimeout,
+    tickId;
 
+// Main scroll handler
+// -------------------
 function handleScroll() {
-	var i;
-
-	if (scrollY !== scrollYCached) {
-        for (i = 0; i < callbackQueue.y.length; i++) {
-    		callbackQueue.y[i](scrollY);
-    	}
-        scrollYCached = scrollY;
-    }
-	if (scrollX !== scrollXCached) {
-        for (i = 0; i < callbackQueue.x.length; i++) {
-    		callbackQueue.x[i](scrollX);
-    	}
-        scrollXCached = scrollX;
-    }
-    for (i = 0; i < callbackQueue.any.length; i++) {
-        callbackQueue.any[i]([scrollX, scrollY]);
-    }
-
-    isQueued = false;
-}
-
-function requestTick() {
-	if (!isQueued) {
-		requestFrame(handleScroll);
-	}
-	isQueued = true;
-}
-
-function onScrollDebouncer() {
+    var isScrollChanged = false;
     if (callbackQueue.x.length || callbackQueue.any.length) {
         scrollX = window.pageXOffset;
     }
     if (callbackQueue.y.length || callbackQueue.any.length) {
         scrollY = window.pageYOffset;
     }
+
+	if (scrollY !== scrollYCached) {
+        callbackQueue.y.forEach(triggerCallback.y);
+        scrollYCached = scrollY;
+        isScrollChanged = true;
+    }
+	if (scrollX !== scrollXCached) {
+        callbackQueue.x.forEach(triggerCallback.x);
+        scrollXCached = scrollX;
+        isScrollChanged = true;
+    }
+    if (isScrollChanged) {
+        callbackQueue.any.forEach(triggerCallback.any);
+        window.clearTimeout(detectIdleTimeout);
+        detectIdleTimeout = null;
+    }
+
+    isQueued = false;
+    requestTick();
+}
+
+// Utilities
+// ---------
+function triggerCallback(callback, scroll) {
+    callback(scroll);
+}
+triggerCallback.y = function(callback) {
+    triggerCallback(callback, scrollY);
+};
+triggerCallback.x = function(callback) {
+    triggerCallback(callback, scrollX);
+};
+triggerCallback.any = function(callback) {
+    triggerCallback(callback, [scrollX, scrollY]);
+};
+
+function enableScrollListener() {
+    if (isListening || isQueued) {
+        return;
+    }
+    if (isIdle) {
+        isListening = true;
+        window.addEventListener('scroll', onScrollDebouncer);
+        document.body.addEventListener('touchmove', onScrollDebouncer);
+        return;
+    }
+    requestTick();
+}
+
+function disableScrollListener() {
+    if (!isListening) {
+        return;
+    }
+    window.removeEventListener('scroll', onScrollDebouncer);
+    document.body.removeEventListener('touchmove', onScrollDebouncer);
+    isListening = false;
+}
+
+function onScrollDebouncer() {
+    isIdle = false;
 	requestTick();
+    disableScrollListener();
+}
+
+function requestTick() {
+	if (isQueued) {
+        return;
+	}
+    if (!detectIdleTimeout) {
+        // Idle is defined as 1.5 seconds without scroll change
+        detectIdleTimeout = window.setTimeout(detectIdle, 1500);
+    }
+	tickId = requestFrame(handleScroll);
+	isQueued = true;
+}
+
+function cancelTick() {
+	if (!isQueued) {
+        return;
+	}
+	cancelFrame(tickId);
+	isQueued = false;
+}
+
+function detectIdle() {
+    isIdle = true;
+    cancelTick();
+    enableScrollListener();
 }
 
 /**
@@ -71,11 +148,7 @@ function onscrolling(direction, callback) {
 	if (!isSupported) {
 		return;
 	}
-	if (!isListening) {
-		window.addEventListener('scroll', onScrollDebouncer);
-		document.body.addEventListener('touchmove', onScrollDebouncer);
-		isListening = true;
-	}
+	enableScrollListener();
     // Verify parameters
     if (typeof direction === 'function') {
         callback = direction;
@@ -115,6 +188,11 @@ onscrolling.remove = function(direction, fn) {
     fnIdx = queue.indexOf(fn);
     if (fnIdx > -1) {
         queue.splice(fnIdx, 1);
+    }
+    // If there's no listeners left, disable listening
+    if (!callbackQueue.x.length && !callbackQueue.y.length && !callbackQueue.any.length) {
+        cancelTick();
+        disableScrollListener();
     }
 };
 onscrolling.off = onscrolling.remove;
