@@ -1,6 +1,6 @@
 {
   "name": "onscrolling",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
   "main": "dist/onscrolling.js",
   "jsnext:main": "src/onscrolling.js",
