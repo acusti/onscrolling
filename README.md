@@ -8,13 +8,13 @@ A better, smoother, more performant onscroll event interface based on the concep
 
 The module exports an `onscrolling` module if being used with a CommonJS or AMD module loader, or else exposes a global object as `window.onscrolling`.
 
-### `onscrolling( callback )`
+### onscrolling( callback )
 
 #### `callback` function
 
 The function to call on a scroll event. In this default version, the module will only call the `callback()` when the page has been scrolled vertically. It will be passed the current vertical scroll position to the callback.
 
-### `onscrolling( direction, callback )`
+### onscrolling( direction, callback )
 
 #### `direction` string
 
@@ -24,13 +24,13 @@ The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when pa
 
 The function to call when the page is scrolled. It will be passed the current horizontal scroll position to the callback if listening for scrollX changes, or an array `[x,y]` if callback is listening for `any` scroll change.
 
-### `onscrolling.remove( fn )`
+### onscrolling.remove( fn )
 
 #### `fn` function
 
 The function to remove from the onscroll handler. In this default version, the function will be removed from the vertical scroll queue.
 
-### `onscrolling( direction, fn )`
+### onscrolling( direction, fn )
 
 #### `direction` string
 
@@ -50,11 +50,12 @@ Out of the box, onscrolling uses `requestAnimationFrame`, which is [only availab
 
 ## Tests
 
-Tests use Mocha + Should.js + Sinon and must be run in a browser. Just open `test/index.html` in a browser (should even work using the `file://` protocol).
+Tests use Mocha + Should.js + Sinon and must be run in a browser. Using `npm test` will run the tests in PhantomJS, but you can also visit `test/index.html` in a browser.
 
 ## TODO
 
 - [ ] Add optional param to specify an object other than `window` to monitor for scroll events
+- [ ] Expose `read` and `write` functions to attach handlers specifically to the read or write portion of each cycle to minimize layout calculations
 
 ## Misc
 
