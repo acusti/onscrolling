@@ -55,7 +55,7 @@ Tests use Mocha + Should.js + Sinon and must be run in a browser. Using `npm tes
 ## TODO
 
 - [ ] Add optional param to specify an object other than `window` to monitor for scroll events
-- [ ] Expose `read` and `write` functions to attach handlers specifically to the read or write portion of each cycle to minimize layout calculations
+- [ ] Expose `measure` and `mutate` functions to attach handlers specifically to the measuring (read) or mutating (write) portion of each cycle to minimize layout calculations
 
 ## Misc
 
