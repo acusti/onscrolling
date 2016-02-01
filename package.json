@@ -35,8 +35,8 @@
     "esperanto": "^0.6.27",
     "jshint": "^2.6.3",
     "mocha": "^2.2.1",
-    "mocha-phantomjs": "^3.5.3",
-    "phantomjs": "^1.9.16",
+    "mocha-phantomjs": "^4.0.2",
+    "phantomjs": "1.9.15",
     "should": "^5.2.0",
     "sinon": "^1.14.1"
   },
