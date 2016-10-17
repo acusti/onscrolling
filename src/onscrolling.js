@@ -15,17 +15,17 @@ if (!requestFrame) {
 }
 
 // Module state
-var isSupported    = !!requestFrame,
-    isListening    = false,
-    isQueued       = false,
-    isIdle         = true,
-    scrollY        = window.pageYOffset,
-    scrollX        = window.pageXOffset,
-    scrollYCached  = scrollY,
-    scrollXCached  = scrollX,
-    directionX     = ['x', 'horizontal'],
-    directionAll   = ['any'],
-    callbackQueue  = {
+var isSupported   = !!requestFrame,
+    isListening   = false,
+    isQueued      = false,
+    isIdle        = true,
+    scrollY       = window.pageYOffset,
+    scrollX       = window.pageXOffset,
+    scrollYCached = scrollY,
+    scrollXCached = scrollX,
+    directionX    = ['x', 'horizontal'],
+    directionAll  = ['any'],
+    callbackQueue = {
         x   : [],
         y   : [],
         any : []
@@ -44,12 +44,12 @@ function handleScroll() {
         scrollY = window.pageYOffset;
     }
 
-	if (scrollY !== scrollYCached) {
+    if (scrollY !== scrollYCached) {
         callbackQueue.y.forEach(triggerCallback.y);
         scrollYCached = scrollY;
         isScrollChanged = true;
     }
-	if (scrollX !== scrollXCached) {
+    if (scrollX !== scrollXCached) {
         callbackQueue.x.forEach(triggerCallback.x);
         scrollXCached = scrollX;
         isScrollChanged = true;
@@ -103,28 +103,28 @@ function disableScrollListener() {
 
 function onScrollDebouncer() {
     isIdle = false;
-	requestTick();
+    requestTick();
     disableScrollListener();
 }
 
 function requestTick() {
-	if (isQueued) {
+    if (isQueued) {
         return;
-	}
+    }
     if (!detectIdleTimeout) {
         // Idle is defined as 1.5 seconds without scroll change
         detectIdleTimeout = window.setTimeout(detectIdle, 1500);
     }
-	tickId = requestFrame(handleScroll);
-	isQueued = true;
+    tickId = requestFrame(handleScroll);
+    isQueued = true;
 }
 
 function cancelTick() {
-	if (!isQueued) {
+    if (!isQueued) {
         return;
-	}
-	cancelFrame(tickId);
-	isQueued = false;
+    }
+    cancelFrame(tickId);
+    isQueued = false;
 }
 
 function detectIdle() {
@@ -145,10 +145,10 @@ function detectIdle() {
  * @param function callback  Function to attach to a scroll event in specified direction
  */
 function onscrolling(direction, callback) {
-	if (!isSupported) {
-		return;
-	}
-	enableScrollListener();
+    if (!isSupported) {
+        return;
+    }
+    enableScrollListener();
     // Verify parameters
     if (typeof direction === 'function') {
         callback = direction;
