@@ -30,7 +30,7 @@ The function to call when the page is scrolled. It will be passed the current ho
 
 The function to remove from the onscroll handler. In this default version, the function will be removed from the vertical scroll queue.
 
-### onscrolling( direction, fn )
+### onscrolling.remove( direction, fn )
 
 #### `direction` string
 
@@ -50,7 +50,7 @@ Out of the box, onscrolling uses `requestAnimationFrame`, which is [only availab
 
 ## Tests
 
-Tests use Mocha + Should.js + Sinon and must be run in a browser. Using `npm test` will run the tests in PhantomJS, but you can also visit `test/index.html` in a browser.
+Tests use Mocha + Should.js + Sinon. Using `npm test` will run the tests in PhantomJS, but you can also open `test/index.html` directly in a browser.
 
 ## TODO
 
@@ -59,7 +59,7 @@ Tests use Mocha + Should.js + Sinon and must be run in a browser. Using `npm tes
 
 ## Misc
 
-*Note: This is the package formerly known as [jank-free-onscroll][]*
+*Note: This package was formerly known as [jank-free-onscroll][]*
 
 
 [html5rocks-tutorial]: http://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-scroll-events
