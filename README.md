@@ -18,11 +18,11 @@ The function to call on a scroll event. In this default version, the module will
 
 #### `direction` string
 
-The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when page is scrolled horizontally, or `any` to trigger when page is scrolled in any direction.
+The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when the page is scrolled horizontally, `y` or `vertical` to trigger when the page is scrolled vertically (the default behavior if not direction is provided), or `any` to trigger when the page is scrolled in any direction.
 
 #### `callback` function
 
-The function to call when the page is scrolled. It will be passed the current horizontal scroll position to the callback if listening for scrollX changes, or an array `[x,y]` if callback is listening for `any` scroll change.
+The function to call when the page is scrolled. It will be passed the current scroll position as a number if listening to a single scroll direction, or an array `[x,y]` if callback is listening for `any` scroll direction change.
 
 ### onscrolling.remove( fn )
 
@@ -34,7 +34,7 @@ The function to remove from the onscroll handler. In this default version, the f
 
 #### `direction` string
 
-The scroll axis that `fn` was listening for. Can be `x` or `horizontal`, or `any`, however the function was originally attached. If a function was attached to multiple scroll directions, you can remove only one of those listeners by calling this once for that direction.
+The scroll axis that `fn` was listening for. Can be `x` or `horizontal`, `y` or `vertical`, or `any` to match how the function was originally attached. If a function was attached to multiple scroll directions, calling this method for a specific direction will only remove the listener for that direction.
 
 #### `fn` function
 
