@@ -9,7 +9,7 @@
     "test-ghetto": "open test/index.html",
     "lint-src": "jshint src/onscrolling.js",
     "lint-tests": "jshint test/onscroll-test.js && jshint --extract=auto test/index.html",
-    "build": "npm run lint-src && esperanto --type umd --name onscrolling -i src/onscrolling.js -o dist/onscrolling.js",
+    "build": "npm run lint-src && rollup src/onscrolling.js --format umd --name onscrolling --file dist/onscrolling.js",
     "build-babel": "babel --modules umd src/onscrolling.js -o dist/onscrolling.js"
   },
   "repository": {
@@ -32,10 +32,10 @@
   },
   "homepage": "https://github.com/acusti/onscrolling",
   "devDependencies": {
-    "esperanto": "^0.6.27",
     "jshint": "^2.6.3",
     "mocha": "^6.2.1",
     "mocha-chrome": "^2.1.0",
+    "rollup": "^1.23.1",
     "should": "^13.2.3",
     "sinon": "^7.5.0"
   },

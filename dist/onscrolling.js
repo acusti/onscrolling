@@ -1,34 +1,35 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    global.onscrolling = factory()
+    (global = global || self, global.onscrolling = factory());
 }(this, function () { 'use strict';
 
-    'use strict';
-
-    // Figure out proper requestAnimationFrame
+    // Get proper requestAnimationFrame
     var requestFrame = window.requestAnimationFrame,
-        cancelFrame  = window.cancelAnimationFrame,
-        vendors      = ['ms', 'moz', 'webkit', 'o'];
+        cancelFrame  = window.cancelAnimationFrame;
 
-    for (var i = 0; i < vendors.length && !requestFrame; i++) {
-        requestFrame = window[vendors[i] + 'RequestAnimationFrame'];
-        cancelFrame  = window[vendors[i] + 'CancelAnimationFrame'] ||
-                       window[vendors[i] + 'CancelRequestAnimationFrame'];
+    if (!requestFrame) {
+        ['ms', 'moz', 'webkit', 'o'].every(function(prefix) {
+            requestFrame = window[prefix + 'RequestAnimationFrame'];
+            cancelFrame  = window[prefix + 'CancelAnimationFrame'] ||
+                           window[prefix + 'CancelRequestAnimationFrame'];
+            // Continue iterating only if requestFrame is still false
+            return !requestFrame;
+        });
     }
 
     // Module state
-    var isSupported    = requestFrame !== undefined,
-        isListening    = false,
-        isQueued       = false,
-        isIdle         = true,
-        scrollY        = window.pageYOffset,
-        scrollX        = window.pageXOffset,
-        scrollYCached  = scrollY,
-        scrollXCached  = scrollX,
-        directionX     = ['x', 'horizontal'],
-        directionAll   = ['any'],
-        callbackQueue  = {
+    var isSupported   = !!requestFrame,
+        isListening   = false,
+        isQueued      = false,
+        isIdle        = true,
+        scrollY       = window.pageYOffset,
+        scrollX       = window.pageXOffset,
+        scrollYCached = scrollY,
+        scrollXCached = scrollX,
+        directionX    = ['x', 'horizontal'],
+        directionAll  = ['any'],
+        callbackQueue = {
             x   : [],
             y   : [],
             any : []
@@ -47,12 +48,12 @@
             scrollY = window.pageYOffset;
         }
 
-    	if (scrollY !== scrollYCached) {
+        if (scrollY !== scrollYCached) {
             callbackQueue.y.forEach(triggerCallback.y);
             scrollYCached = scrollY;
             isScrollChanged = true;
         }
-    	if (scrollX !== scrollXCached) {
+        if (scrollX !== scrollXCached) {
             callbackQueue.x.forEach(triggerCallback.x);
             scrollXCached = scrollX;
             isScrollChanged = true;
@@ -87,9 +88,9 @@
             return;
         }
         if (isIdle) {
+            isListening = true;
             window.addEventListener('scroll', onScrollDebouncer);
             document.body.addEventListener('touchmove', onScrollDebouncer);
-            isListening = true;
             return;
         }
         requestTick();
@@ -106,32 +107,33 @@
 
     function onScrollDebouncer() {
         isIdle = false;
-    	requestTick();
+        requestTick();
         disableScrollListener();
     }
 
     function requestTick() {
-    	if (isQueued) {
+        if (isQueued) {
             return;
-    	}
+        }
         if (!detectIdleTimeout) {
             // Idle is defined as 1.5 seconds without scroll change
             detectIdleTimeout = window.setTimeout(detectIdle, 1500);
         }
-    	tickId = requestFrame(handleScroll);
-    	isQueued = true;
+        tickId = requestFrame(handleScroll);
+        isQueued = true;
     }
 
     function cancelTick() {
-    	if (!isQueued) {
+        if (!isQueued) {
             return;
-    	}
-    	cancelFrame(tickId);
-    	isQueued = false;
+        }
+        cancelFrame(tickId);
+        isQueued = false;
     }
 
     function detectIdle() {
         isIdle = true;
+        cancelTick();
         enableScrollListener();
     }
 
@@ -147,10 +149,10 @@
      * @param function callback  Function to attach to a scroll event in specified direction
      */
     function onscrolling(direction, callback) {
-    	if (!isSupported) {
-    		return;
-    	}
-    	enableScrollListener();
+        if (!isSupported) {
+            return;
+        }
+        enableScrollListener();
         // Verify parameters
         if (typeof direction === 'function') {
             callback = direction;
@@ -198,7 +200,6 @@
         }
     };
     onscrolling.off = onscrolling.remove;
-
 
     return onscrolling;
 
