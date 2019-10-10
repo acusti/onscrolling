@@ -1,4 +1,6 @@
 language: node_js
+node_js:
+  - node
 env:
   global:
     - secure: e74u/QGsRd7E8Ztn+oh8tiN0ylcNWOqGlzbcwB3/uVS7WJd4kP3XklM736NfltSFr6uRpYq/mSBKm8DKlpsCRiACmQ1kZlsz7W0bYAv+0G3qpLmvkKfLjm1nLCjQkpGFPO5AneuJs5Y0tjoMPmQJm/cY2ejauwhy6n6ghg1agME=
