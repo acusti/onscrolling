@@ -5,7 +5,7 @@
   "main": "dist/onscrolling.js",
   "jsnext:main": "src/onscrolling.js",
   "scripts": {
-    "test": "npm run build && npm run lint-tests && mocha-phantomjs ./test/index.html",
+    "test": "npm run build && npm run lint-tests && mocha-chrome ./test/index.html",
     "test-ghetto": "open test/index.html",
     "lint-src": "jshint src/onscrolling.js",
     "lint-tests": "jshint test/onscroll-test.js && jshint --extract=auto test/index.html",
@@ -34,11 +34,10 @@
   "devDependencies": {
     "esperanto": "^0.6.27",
     "jshint": "^2.6.3",
-    "mocha": "^2.2.1",
-    "mocha-phantomjs": "^4.0.2",
-    "phantomjs": "1.9.15",
-    "should": "^5.2.0",
-    "sinon": "^1.14.1"
+    "mocha": "^6.2.1",
+    "mocha-chrome": "^2.1.0",
+    "should": "^13.2.3",
+    "sinon": "^7.5.0"
   },
   "dependencies": {},
   "jspm": {

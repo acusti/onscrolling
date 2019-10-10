@@ -15,17 +15,8 @@ function setupDocument() {
 }
 
 function dispatchScroll() {
-    // Not supported in phantomjs 1.9.x:
-	// var scrollEvt = new Event('scroll');
-	// window.dispatchEvent(scrollEvt);
-    // Use document.createEvent (via MDN)
-    var scrollEvt = document.createEvent('Event');
-
-    // Define that the event name is 'scroll'.
-    scrollEvt.initEvent('scroll', true, true);
-
-    // Dispatch event using document
-    document.dispatchEvent(scrollEvt);
+	var scrollEvent = new Event('scroll');
+	window.dispatchEvent(scrollEvent);
 }
 
 function triggerScroll(direction) {

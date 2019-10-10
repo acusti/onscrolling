@@ -50,7 +50,7 @@ Out of the box, onscrolling uses `requestAnimationFrame`, which is [only availab
 
 ## Tests
 
-Tests use Mocha + Should.js + Sinon. Using `npm test` will run the tests in PhantomJS, but you can also open `test/index.html` directly in a browser.
+Tests use Mocha + Should.js + Sinon. Using `npm test` will run the tests in headless Chrome via mocha-chrome, but you can also open `test/index.html` directly in a browser.
 
 ## TODO
 
