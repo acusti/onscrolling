@@ -18,7 +18,7 @@ The function to call on a scroll event. In this default version, the module will
 
 #### `direction` string
 
-The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when the page is scrolled horizontally, `y` or `vertical` to trigger when the page is scrolled vertically (the default behavior if not direction is provided), or `any` to trigger when the page is scrolled in any direction.
+The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when the page is scrolled horizontally, `y` or `vertical` to trigger when the page is scrolled vertically (the default behavior if no direction is provided), or `any` to trigger when the page is scrolled in any direction.
 
 #### `callback` function
 
