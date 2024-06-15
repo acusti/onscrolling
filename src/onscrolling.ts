@@ -1,3 +1,6 @@
+// Create window fallback if needed for SSR
+const window = globalThis.window ?? globalThis;
+
 // Module state
 let isListening = false;
 let isQueued = false;
