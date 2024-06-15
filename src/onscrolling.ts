@@ -99,7 +99,7 @@ function requestTick() {
         detectIdleTimeout = setTimeout(detectIdle, 1500);
     }
 
-    tickID = requestAnimationFrame(handleScroll);
+    tickID = window.requestAnimationFrame(handleScroll);
     isQueued = true;
 }
 
@@ -107,7 +107,7 @@ function cancelTick() {
     if (!isQueued) return;
 
     if (tickID != null) {
-        cancelAnimationFrame(tickID);
+        window.cancelAnimationFrame(tickID);
         tickID = null;
     }
 
