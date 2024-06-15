@@ -1,5 +1,3 @@
-'use strict';
-
 // Module state
 let isListening = false;
 let isQueued = false;
