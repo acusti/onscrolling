@@ -17,7 +17,7 @@ export default [
     prettierConfig,
     // Global ignores
     {
-        ignores: ['dist/', 'public/'],
+        ignores: ['dist/', 'vitest.config.ts', 'public/'],
     },
 
     // General rules
