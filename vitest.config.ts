@@ -9,6 +9,6 @@ export default defineConfig({
     plugins: [tsconfigPaths()] as UserConfig['plugins'],
     test: {
         environment: 'happy-dom',
-        setupFiles: ['./test/setup-test-env.ts'],
+        setupFiles: ['./src/test/setup-test-env.ts'],
     },
 });
