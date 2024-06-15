@@ -34,7 +34,7 @@ describe('onscrolling', function () {
         const cleanup = onscrolling(onScrollFn);
         triggerScroll();
         expect(onScrollFn.mock.calls.length).toBe(0);
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         cleanup();
     });
@@ -43,10 +43,10 @@ describe('onscrolling', function () {
         var onScrollFn = vi.fn();
         const cleanup = onscrolling(onScrollFn, { vertical: true });
         triggerScroll('x');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(0);
         triggerScroll('y');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         cleanup();
     });
@@ -55,10 +55,10 @@ describe('onscrolling', function () {
         var onScrollFn = vi.fn();
         const cleanup = onscrolling(onScrollFn, { y: true });
         triggerScroll('x');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(0);
         triggerScroll('y');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         cleanup();
     });
@@ -68,10 +68,10 @@ describe('onscrolling', function () {
 
         const cleanup = onscrolling(onScrollFn, { x: true });
         triggerScroll();
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(0);
         triggerScroll('x');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         cleanup();
     });
@@ -81,7 +81,7 @@ describe('onscrolling', function () {
 
         const cleanup = onscrolling(onScrollFn, { horizontal: true });
         triggerScroll('x');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         cleanup();
     });
@@ -94,10 +94,10 @@ describe('onscrolling', function () {
             vertical: true,
         });
         triggerScroll('x');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         triggerScroll('y');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(2);
         cleanup();
     });
@@ -110,10 +110,10 @@ describe('onscrolling', function () {
             vertical: true,
         });
         triggerScroll('any');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(1);
         triggerScroll('y');
-        await delay(16);
+        await delay(0);
         expect(onScrollFn.mock.calls.length).toBe(2);
         cleanup();
     });
@@ -134,7 +134,7 @@ describe('onscrolling callback', function () {
 
         const cleanup = onscrolling(onScrollFn);
         triggerScroll();
-        await delay(16);
+        await delay(0);
         expect(results).not.toBeNull();
         expect(results!.scrollX === window.scrollX).toBe(true);
         expect(results!.scrollY === window.scrollY).toBe(true);
@@ -149,7 +149,7 @@ describe('onscrolling callback', function () {
 
         const cleanup = onscrolling(onScrollFn, { horizontal: true });
         triggerScroll('x');
-        await delay(16);
+        await delay(0);
         expect(results).not.toBeNull();
         expect(results!.scrollX === window.scrollX).toBe(true);
         cleanup();
