@@ -49,7 +49,8 @@ export default [
         plugins: { import: importPlugin },
         rules: {
             ...importPlugin.configs.recommended.rules,
-            'import/extensions': ['error', 'ignorePackages'],
+            // TODO enable this once https://github.com/import-js/eslint-plugin-import/pull/2813 is merged + published
+            // 'import/extensions': ['error', 'ignorePackages'],
             'import/order': [
                 'error',
                 {
