@@ -11,11 +11,8 @@ globalThis.document = window.document;
 document.body.innerHTML =
     '<style>#fixture {min-width:200vw;min-height:200vh;}</style><div id="fixture"></div>';
 
-function dispatchScroll() {
-    window.dispatchEvent(new window.Event('scroll'));
-}
-
 function triggerScroll(direction?: 'x' | 'y' | 'any') {
+    // first apply the scroll change
     if (direction === 'x') {
         window.scrollTo(window.scrollX + 3, window.scrollY);
     } else if (direction === 'any') {
@@ -23,7 +20,8 @@ function triggerScroll(direction?: 'x' | 'y' | 'any') {
     } else {
         window.scrollTo(window.scrollX, window.scrollY + 3);
     }
-    dispatchScroll();
+    // then trigger the scroll event
+    window.dispatchEvent(new window.Event('scroll'));
 }
 
 describe('onscrolling', function () {
