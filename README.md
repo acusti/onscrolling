@@ -6,39 +6,29 @@ A better, smoother, more performant onscroll event interface based on the concep
 
 ## Usage
 
-The module exports an `onscrolling` module if being used with a CommonJS or AMD module loader, or else exposes a global object as `window.onscrolling`.
+The module is ESM-only and exports a single default `onscrolling` function:
 
-### onscrolling( callback )
+### onscrolling( listener )
 
-#### `callback` function
+#### `listener` function `(payload: { scrollX: number; scrollY: number }) => void`
 
-The function to call on a scroll event. In this default version, the module will only call the `callback()` when the page has been scrolled vertically. It will be passed the current vertical scroll position to the callback.
+The function to call on a scroll event with a `{ scrollX: number; scrollY: number }` payload object. In this default version, the module will only invoke the listener when the page has been scrolled vertically.
 
-### onscrolling( direction, callback )
+### onscrolling( listener, options )
 
-#### `direction` string
+#### `listener` function `(payload: { scrollX: number; scrollY: number }) => void`
 
-The scroll axis to monitor. Values can be `x` or `horizontal` to trigger when the page is scrolled horizontally, `y` or `vertical` to trigger when the page is scrolled vertically (the default behavior if no direction is provided), or `any` to trigger when the page is scrolled in any direction.
+The function to call on a scroll event with a `{ scrollX: number; scrollY: number }` payload object. The listener is invoked when the page is scrolled in any of the direction specified in the `options` object (only once per event).
 
-#### `callback` function
+#### `options` object `{ horizontal?: boolean; vertical?: boolean; x?: boolean; y?: boolean }`
 
-The function to call when the page is scrolled. It will be passed the current scroll position as a number if listening to a single scroll direction, or an array `[x,y]` if callback is listening for `any` scroll direction change.
+The scroll axis or axes to monitor. `x` is an alias for `horizontal`, and `y` is an alias for `vertical`. If neither horizontal nor vertical are true, `vertical` is used as the default. To listen for any scroll event in any direction, set both `horizontal` and `vertical` to `true`.
 
-### onscrolling.remove( fn )
+### onscrolling return value
 
-#### `fn` function
+#### `onscrolling` function `(listener: Listener, options?: Options) => () => void`
 
-The function to remove from the onscroll handler. In this default version, the function will be removed from the vertical scroll queue.
-
-### onscrolling.remove( direction, fn )
-
-#### `direction` string
-
-The scroll axis that `fn` was listening for. Can be `x` or `horizontal`, `y` or `vertical`, or `any` to match how the function was originally attached. If a function was attached to multiple scroll directions, calling this method for a specific direction will only remove the listener for that direction.
-
-#### `fn` function
-
-The function to remove from the onscroll handler for the specified direction.
+The `onscrolling` function returns a cleanup function that takes no arguments and is used to remove the passed-in scroll event `listener`.
 
 ## Dependencies
 
@@ -50,7 +40,7 @@ Out of the box, onscrolling uses `requestAnimationFrame`, which is [only availab
 
 ## Tests
 
-Tests use Mocha + Should.js + Sinon. Using `npm test` will run the tests in headless Chrome via mocha-chrome, but you can also open `test/index.html` directly in a browser.
+Tests use vitest + happy-dom, and can be run with `yarn test`.
 
 ## TODO
 
