@@ -54,13 +54,12 @@ Tests use Mocha + Should.js + Sinon. Using `npm test` will run the tests in head
 
 ## TODO
 
-- [ ] Add optional param to specify an object other than `window` to monitor for scroll events
-- [ ] Expose `measure` and `mutate` functions to attach handlers specifically to the measuring (read) or mutating (write) portion of each cycle to minimize layout calculations
+-   [ ] Add optional param to specify an object other than `window` to monitor for scroll events
+-   [ ] Expose `measure` and `mutate` functions to attach handlers specifically to the measuring (read) or mutating (write) portion of each cycle to minimize layout calculations
 
 ## Misc
 
-*Note: This package was formerly known as [jank-free-onscroll][]*
-
+_Note: This package was formerly known as [jank-free-onscroll][]_
 
 [html5rocks-tutorial]: http://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-scroll-events
 [raf-caniuse]: http://caniuse.com/#feat=requestanimationframe

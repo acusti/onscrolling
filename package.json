@@ -1,50 +1,76 @@
 {
-  "name": "onscrolling",
-  "version": "1.0.0",
-  "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
-  "main": "dist/onscrolling.js",
-  "jsnext:main": "src/onscrolling.js",
-  "scripts": {
-    "test": "npm run build && npm run lint-tests && mocha-chrome ./test/index.html",
-    "test-ghetto": "open test/index.html",
-    "lint-src": "jshint src/onscrolling.js",
-    "lint-tests": "jshint test/onscroll-test.js && jshint --extract=auto test/index.html",
-    "build": "npm run lint-src && rollup src/onscrolling.js --format umd --name onscrolling --file dist/onscrolling.js",
-    "build-babel": "babel --modules umd src/onscrolling.js -o dist/onscrolling.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/acusti/onscrolling.git"
-  },
-  "keywords": [
-    "onscroll",
-    "scroll",
-    "browser",
-    "requestAnimationFrame",
-    "raf",
-    "event",
-    "mobile"
-  ],
-  "author": "Andrew Patton <andrew@acusti.ca> (http://www.acusti.ca)",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/acusti/onscrolling/issues"
-  },
-  "homepage": "https://github.com/acusti/onscrolling",
-  "devDependencies": {
-    "jshint": "^2.6.3",
-    "mocha": "^6.2.1",
-    "mocha-chrome": "^2.1.0",
-    "rollup": "^1.23.1",
-    "should": "^13.2.3",
-    "sinon": "^7.5.0"
-  },
-  "dependencies": {},
-  "jspm": {
-    "directories": {
-      "lib": "src"
+    "name": "onscrolling",
+    "version": "2.0.0",
+    "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
+    "type": "module",
+    "sideEffects": false,
+    "exports": "./dist/onscrolling.js",
+    "main": "./dist/onscrolling.js",
+    "types": "./dist/onscrolling.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "build": "npm run lint && tsc --build",
+        "format": "prettier --write .",
+        "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+        "test": "vitest",
+        "typecheck": "tsc"
     },
-    "main": "onscroll",
-    "format": "es6"
-  }
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/acusti/onscrolling.git"
+    },
+    "prettier": {
+        "arrowParens": "always",
+        "singleQuote": true,
+        "printWidth": 84,
+        "tabWidth": 4,
+        "trailingComma": "all",
+        "useTabs": false,
+        "overrides": [
+            {
+                "files": "*.css",
+                "options": {
+                    "singleQuote": false
+                }
+            }
+        ]
+    },
+    "keywords": [
+        "onscroll",
+        "scroll",
+        "browser",
+        "requestAnimationFrame",
+        "raf",
+        "event",
+        "mobile"
+    ],
+    "author": "Andrew Patton <andrew@acusti.ca> (http://www.acusti.ca)",
+    "license": "CC0-1.0",
+    "bugs": {
+        "url": "https://github.com/acusti/onscrolling/issues"
+    },
+    "homepage": "https://github.com/acusti/onscrolling",
+    "devDependencies": {
+        "@testing-library/jest-dom": "^6.4.6",
+        "@typescript-eslint/eslint-plugin": "^7.13.0",
+        "@typescript-eslint/parser": "^7.13.0",
+        "@vitest/coverage-v8": "^1.6.0",
+        "eslint": "^8",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-import-resolver-typescript": "^3.6.1",
+        "eslint-plugin-cypress": "^3.3.0",
+        "eslint-plugin-deprecation": "^3.0.0",
+        "eslint-plugin-import": "^2.29.1",
+        "eslint-plugin-jest": "^28.6.0",
+        "eslint-plugin-jest-dom": "^5.4.0",
+        "eslint-plugin-markdown": "^5.0.0",
+        "eslint-plugin-testing-library": "^6.2.2",
+        "eslint-plugin-typescript-sort-keys": "^3.2.0",
+        "happy-dom": "^14.12.0",
+        "prettier": "^2.8.0",
+        "typescript": "^5.3.3",
+        "vite-tsconfig-paths": "^4.3.2",
+        "vitest": "^1.6.0"
+    },
+    "dependencies": {}
 }
