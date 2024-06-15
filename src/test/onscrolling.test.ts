@@ -1,8 +1,6 @@
 import { Window } from 'happy-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import onscrolling from '../onscrolling.js';
-
 const delay = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
 // @ts-expect-error happy-dom’s Window doesn’t satisfy globalThis.window’s type
@@ -10,6 +8,8 @@ globalThis.window = new Window({ url: 'https://localhost:8080' });
 globalThis.document = window.document;
 document.body.innerHTML =
     '<style>#fixture {min-width:200vw;min-height:200vh;}</style><div id="fixture"></div>';
+
+const onscrolling = (await import('../onscrolling.js')).default;
 
 function triggerScroll(direction?: 'x' | 'y' | 'any') {
     // first apply the scroll change
