@@ -139,7 +139,7 @@ type Options = {
  * @param object   options   Direction of scroll to attach to:
  *                 'horizontal'|'x' and/or 'vertical'|'y' (the default)
  */
-function onscrolling(callback: Callback, options: Options = {}) {
+export default function onscrolling(callback: Callback, options: Options = {}) {
     enableScrollListener();
 
     let { x, y, horizontal = x, vertical = y } = options;
@@ -156,35 +156,24 @@ function onscrolling(callback: Callback, options: Options = {}) {
     }
 
     return () => {
-        removeListener(callback, options);
+        if (horizontal) {
+            const index = callbackQueue.x.indexOf(callback);
+            if (index > -1) {
+                callbackQueue.x.splice(index, 1);
+            }
+        }
+
+        if (vertical) {
+            const index = callbackQueue.y.indexOf(callback);
+            if (index > -1) {
+                callbackQueue.y.splice(index, 1);
+            }
+        }
+
+        // If there are no listeners left, disable listening
+        if (!callbackQueue.x.length && !callbackQueue.y.length) {
+            cancelTick();
+            disableScrollListener();
+        }
     };
 }
-
-function removeListener(callback: Callback, options: Options = {}) {
-    let { x, y, horizontal = x, vertical = y } = options;
-    if (!horizontal && !vertical) {
-        vertical = true;
-    }
-
-    if (horizontal) {
-        const index = callbackQueue.x.indexOf(callback);
-        if (index > -1) {
-            callbackQueue.x = callbackQueue.x.toSpliced(index, 1);
-        }
-    }
-
-    if (vertical) {
-        const index = callbackQueue.y.indexOf(callback);
-        if (index > -1) {
-            callbackQueue.y = callbackQueue.y.toSpliced(index, 1);
-        }
-    }
-
-    // If there are no listeners left, disable listening
-    if (!callbackQueue.x.length && !callbackQueue.y.length) {
-        cancelTick();
-        disableScrollListener();
-    }
-}
-
-export default onscrolling;
