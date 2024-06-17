@@ -1,6 +1,6 @@
 {
     "name": "onscrolling",
-    "version": "2.0.0-beta.6",
+    "version": "2.0.0-beta.7",
     "description": "A better, smoother, more performant window.onscroll event interface using requestAnimationFrame for performance and mobile-compatibility",
     "type": "module",
     "sideEffects": false,
