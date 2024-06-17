@@ -36,11 +36,11 @@ None.
 
 ## Compatibility
 
-Out of the box, onscrolling uses `requestAnimationFrame`, which is [only available in IE10+][raf-caniuse]. For older browsers, your scroll watchers simply won’t run. To add compatibility for those browsers, just include a [requestAnimationFrame polyfill][raf-polyfill].
+This module is ESM-only and takes advantage of modern JS language features. It includes code to ensure it won’t throw errors in non-browser environments (e.g. node, workersd, deno, bun, etc.), where it will not do anything but also won’t break SSR. To make it compatible with non-ESM environments and older browsers, it must be transpiled.
 
 ## Tests
 
-Tests use vitest + happy-dom, and can be run with `yarn test`.
+Tests use vitest + happy-dom and can be run with `yarn test`.
 
 ## TODO
 
@@ -52,6 +52,4 @@ Tests use vitest + happy-dom, and can be run with `yarn test`.
 _Note: This package was formerly known as [jank-free-onscroll][]_
 
 [html5rocks-tutorial]: http://www.html5rocks.com/en/tutorials/speed/animations/#debouncing-scroll-events
-[raf-caniuse]: http://caniuse.com/#feat=requestanimationframe
-[raf-polyfill]: https://gist.github.com/paulirish/1579671
 [jank-free-onscroll]: https://github.com/acusti/jank-free-onscroll
