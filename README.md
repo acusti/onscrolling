@@ -44,7 +44,7 @@ Tests use vitest + happy-dom and can be run with `yarn test`.
 
 ## TODO
 
--   [ ] Add optional param to specify an object other than `window` to monitor for scroll events
+-   [ ] Add optional param to specify an object other than `window` to monitor for scroll events (e.g. `{ scrollingElement: DOMElement }`)
 -   [ ] Expose `measure` and `mutate` functions to attach handlers specifically to the measuring (read) or mutating (write) portion of each cycle to minimize layout calculations
 
 ## Misc
