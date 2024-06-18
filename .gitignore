@@ -27,3 +27,7 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# OS cruft
+.DS_Store
+Thumbs.db
